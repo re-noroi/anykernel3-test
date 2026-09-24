@@ -79,6 +79,11 @@ if { [ "$(basename "$ZIPFILE")" = "update.zip" ] || [ "$(basename "$ZIPFILE")" =
         mv *-miui-dtbo.img $home/dtbo.img
         rm -f *-aosp-dtbo.img
         ;;
+      oplus)
+        ui_print "OEM Ports detected, using MIUI DTBO..."
+        mv *-miui-dtbo.img $home/dtbo.img
+        rm -f *-aosp-dtbo.img
+        ;;
       aosp)
         ui_print "AOSP detected, using AOSP DTBO..."
         mv *-aosp-dtbo.img $home/dtbo.img
@@ -126,12 +131,17 @@ if { [ "$(basename "$ZIPFILE")" = "update.zip" ] || [ "$(basename "$ZIPFILE")" =
 else
 
   case "$ZIPFILE" in
-    *miui*|*MIUI*)
-      ui_print "MIUI/HyperOS Detected,";
-      ui_print "Using MIUI DTBO... ";
-      mv *-miui-dtbo.img $home/dtbo.img;
-      rm *-aosp-dtbo.img;
-    ;;
+    *miui*|*MIUI*|*oplus*|*OPLUS*)
+      if [[ "$ZIPFILE" == *"oplus"* || "$ZIPFILE" == *"OPLUS"* ]]; then
+        ui_print "OEM Ports Detected,"
+        ui_print "Using MIUI DTBO... "
+      else
+        ui_print "MIUI/HyperOS Detected,"
+        ui_print "Using MIUI DTBO... "
+      fi
+      
+      mv *-miui-dtbo.img $home/dtbo.img
+      rm *-aosp-dtbo.img
     *)
       ui_print "Default variant detected !!!";
       ui_print "Using Regular AOSP DTBO... ";
