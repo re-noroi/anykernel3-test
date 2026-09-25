@@ -143,6 +143,7 @@ else
       
       mv *-miui-dtbo.img $home/dtbo.img
       rm *-aosp-dtbo.img
+    ;;
     *)
       ui_print "Default variant detected !!!";
       ui_print "Using Regular AOSP DTBO... ";
